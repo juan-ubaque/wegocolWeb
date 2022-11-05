@@ -20,7 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     #incluidos las urls de la aplicacion usuarios
-    path('api/', include('usuarios.urls')),
+    path('usuarios/', include('usuarios.urls')),
     
     #incluidos las urls de la aplicacion home
     path('', include('home.urls')),

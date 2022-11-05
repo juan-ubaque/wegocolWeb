@@ -8,7 +8,6 @@ class Persona (models.Model):
         ('O', 'Otro'),
     )
     
-    id_persona = models.AutoField(primary_key=True)
     referido = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     email = models.CharField(max_length=50)
     nombres = models.CharField(max_length=100)
@@ -20,11 +19,10 @@ class Persona (models.Model):
     telefono = models.CharField(max_length=20)
     
     def __str__(self):
-        return self.name
+        return self.nombres + ' ' + self.apellidos
 
 
 class conductor (models.Model):
-    id_conductor = models.AutoField(primary_key=True)
     id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
     licencia = models.CharField(max_length=20)
     foto_licencia = models.ImageField(upload_to='media', null=True, blank=True)
@@ -32,6 +30,9 @@ class conductor (models.Model):
     estado = models.BooleanField(default=True)
     antecedentes = models.CharField(max_length=100, null=True, blank=True)
     
-    
-    def __str__(self):
-        return self.id_persona.name
+
+class Location (models.Model):
+    persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
+    token = models.CharField(max_length=100 , null=True, blank=True)
+    lat = models.FloatField()
+    lon = models.FloatField()
